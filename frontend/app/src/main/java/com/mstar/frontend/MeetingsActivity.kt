@@ -9,20 +9,56 @@ import android.widget.ArrayAdapter
 
 import kotlinx.android.synthetic.main.activity_meetings.*
 import kotlinx.android.synthetic.main.content_meetings.*
+import android.content.Intent
+import android.util.Log
+import com.facebook.AccessToken
+import com.facebook.GraphResponse
+import com.facebook.GraphRequest
+import org.json.JSONObject
+
+
+
+
+
+
 
 class MeetingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meetings)
+
+     //   if (AccessToken.getCurrentAccessToken() == null) {
+            val loginIntent = Intent(this, FacebookLoginActivity::class.java)
+            startActivity(loginIntent)
+     //   }
+
         setSupportActionBar(toolbar)
         val listItems = arrayOf("a","b")
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
         meetingsList.adapter = adapter
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        fab.setOnClickListener { fetchEvents()
         }
+    }
+
+    private fun fetchEvents() {
+        val jsonObject = JSONObject()
+        jsonObject.put("message" ,"xd")
+        val request2 = GraphRequest.newPostRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me/feed",jsonObject
+        ) {
+            Log.i("MainActivity", it.toString())
+        }
+        val request = GraphRequest.newGraphPathRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me/permissions"
+        ) {
+            Log.i("MainActivity", it.toString())
+        }
+
+        request.executeAsync()
+        request2.executeAsync()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
