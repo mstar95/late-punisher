@@ -6,8 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".CreateMeetingActivity">
 
+    <TextView
+        android:id="@+id/participants"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:text="participants:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address" />
+
     <EditText
-        android:id="@+id/title"
+        android:id="@+id/titleL"
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:layout_marginEnd="100dp"
@@ -23,16 +37,16 @@
     <Button
         android:id="@+id/mapButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="1dp"
         android:text="address"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/createButton"
         app:layout_constraintStart_toEndOf="@+id/userButton"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
+        app:layout_constraintTop_toBottomOf="@+id/punishment" />
 
     <Button
         android:id="@+id/createButton"
@@ -41,12 +55,12 @@
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="70dp"
         android:text="create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/mapButton"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
+        app:layout_constraintTop_toBottomOf="@+id/usersLabel" />
 
     <TextView
         android:id="@+id/address"
@@ -55,19 +69,19 @@
         android:layout_marginEnd="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="address"
+        android:text="address:"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventDate" />
 
     <ListView
-        android:id="@+id/users"
+        android:id="@+id/usersLabel"
         android:layout_width="0dp"
-        android:layout_height="253dp"
+        android:layout_height="172dp"
         android:layout_marginEnd="100dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="52dp"
         android:headerDividersEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -81,12 +95,12 @@
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="1dp"
         android:text="user"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/mapButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
+        app:layout_constraintTop_toBottomOf="@+id/punishment" />
 
     <EditText
         android:id="@+id/eventDate"
@@ -100,6 +114,20 @@
         android:inputType="datetime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@+id/titleL" />
+
+    <EditText
+        android:id="@+id/punishment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="149dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:hint="punishment"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usersLabel" />
 
 </android.support.constraint.ConstraintLayout>

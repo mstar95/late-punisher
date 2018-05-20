@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MeetingDetails">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="146dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address"
+        tools:context=".SetMeetingPlaceActivity" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="64dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="222dp"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="20dp"
+        android:text="address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/punishments" />
+
+    <ListView
+        android:id="@+id/users"
+        android:layout_width="0dp"
+        android:layout_height="162dp"
+        android:layout_marginTop="20dp"
+        android:headerDividersEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usersLabel" />
+
+    <TextView
+        android:id="@+id/titleD"
+        android:layout_width="57dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="278dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="16dp"
+        android:text="title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="49dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="286dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="23dp"
+        android:text="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleL" />
+
+    <TextView
+        android:id="@+id/usersLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="288dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="28dp"
+        android:text="participants:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date" />
+
+    <Button
+        android:id="@+id/punishments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="198dp"
+        android:layout_marginStart="98dp"
+        android:text="show punihsments"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/users" />
+
+</android.support.constraint.ConstraintLayout>

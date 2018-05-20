@@ -11,13 +11,17 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.Marker
+import com.mstar.frontend.services.MeetingService
+
 
 class SetMeetingPlaceActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-    private lateinit var locationManager : LocationManager
+    private lateinit var locationManager: LocationManager
     private var loc: Location? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,14 +46,35 @@ class SetMeetingPlaceActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         prepareLocationListener()
-        val pos = LatLng(loc?.latitude?: 52.12, loc?.longitude?: 20.58)
-        mMap.addMarker(MarkerOptions().position(pos).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(pos))
 
-        mMap.setOnMarkerClickListener {
-            Log.i("XD", it.id.toString())
-         true
+        mMap.setOnMapLongClickListener {
+            val markerOptions = MarkerOptions()
+            markerOptions.position(it)
+            markerOptions.draggable(true);
+            markerOptions.title("Click on me to select place");
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+            mMap.addMarker(markerOptions);
+            ///mHazardsMarker = mMap.addMarker(markerOptions);
         }
+
+        mMap.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
+            override fun onMarkerDragStart(marker: Marker) {}
+
+            override fun onMarkerDrag(marker: Marker) {
+                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+            }
+
+            override fun onMarkerDragEnd(marker: Marker) {
+                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+            }
+        })
+
+        mMap.setOnInfoWindowClickListener { marker ->
+            val objLoc = marker.position
+            MeetingService.addLoc(objLoc)
+            finish()
+        }
+
     }
 
     private fun prepareLocationListener() {
@@ -68,7 +93,12 @@ class SetMeetingPlaceActivity : AppCompatActivity(), OnMapReadyCallback {
             }
 
             override fun onLocationChanged(location: Location) {
+                Log.i("XD",location.toString())
                 loc = location
+                val pos = LatLng(loc?.latitude ?: 52.12, loc?.longitude ?: 20.58)
+                mMap.addMarker(MarkerOptions().position(pos).title("U are here"))
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(pos))
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(10F), 2000, null);
             }
         }
 
