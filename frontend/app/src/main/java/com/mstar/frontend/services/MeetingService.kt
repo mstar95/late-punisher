@@ -1,9 +1,12 @@
 package com.mstar.frontend.services
 
+import android.util.Log
 import com.google.android.gms.maps.model.LatLng
+import com.mstar.frontend.clients.BackendClient
 import com.mstar.frontend.domain.Meeting
-import rx.Observable
-import rx.subjects.PublishSubject
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+
 
 object MeetingService {
     private val locObs = PublishSubject.create<LatLng>()
@@ -15,15 +18,22 @@ object MeetingService {
     }
 
     fun getLoc(): Observable<LatLng> {
-        return locObs.asObservable()
+        return locObs
     }
 
     fun addMeeting(meeting: Meeting) {
+     //   BackendClient.addMeeting(meeting)
         meetings.add(meeting)
         meetingOb.onNext(meeting)
     }
 
     fun getMeetings(): Observable<Meeting> {
-        return meetingOb.asObservable()
+        req()
+        return meetingOb
+    }
+
+    fun req() {
+        BackendClient.meetings().subscribe({ Log.i("MEETINGS", it.toString())},
+                { Log.i("ERROR:", it.message)})
     }
 }

@@ -1,8 +1,8 @@
 package com.mstar.frontend.services
 
 import com.mstar.frontend.domain.User
-import rx.Observable
-import rx.subjects.PublishSubject
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 
 object UserService {
     val users: MutableList<User> =  mutableListOf(User("XD", 0),
@@ -15,6 +15,6 @@ object UserService {
 
 
     fun getUsers() : Observable<User> {
-        return obs.asObservable()
+        return obs
     }
 }
