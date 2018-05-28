@@ -1,10 +1,11 @@
 const db = require('monk')('localhost/late-punisher')
 
 const meetings = db.get('meetings')
-const meetings = db.get('users')
+const users = db.get('users')
 
 exports.meetings = async ctx => {
     ctx.body = await meetings.find({})
+    console.log(ctx.body)
 }
 
 exports.addMeeting = async ctx => {
@@ -12,8 +13,13 @@ exports.addMeeting = async ctx => {
     ctx.body = await meetings.insert(meeting)
 }
 
+exports.updateMeeting = async ctx => {
+    const meeting = ctx.request.body
+    ctx.body = await meetings.update({ _id: meeting._id }, meeting)
+}
+
 exports.clearMeetings = async ctx => {
-    await meetings.remove({})
+    meetings.remove({})
 }
 
 exports.meetingsByUser = async ctx => {
@@ -33,9 +39,13 @@ exports.clearUsers = async ctx => {
 
 exports.addUser = async ctx => {
     const user = ctx.request.body
-    const users = await users.find({id: user.id})
-    if (users.length == 0) {
-        users.insert(users)
+    const result = await users.find({ id: parseInt(user.id) })
+    console.log(user, result)
+
+    if (result.length == 0) {
+        ctx.body = await users.insert(user)
+    } else {
+        ctx.body = result[0]
     }
 }
 

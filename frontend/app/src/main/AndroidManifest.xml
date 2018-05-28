@@ -11,6 +11,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -67,11 +68,19 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".SetMeetingPlaceActivity"
             android:label="@string/title_activity_set_meeting_place" />
-        <activity android:name=".MeetingDetails"></activity>
+        <activity android:name=".MeetingDetails" />
+
+        <service
+            android:name=".services.GeoLocationService"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>

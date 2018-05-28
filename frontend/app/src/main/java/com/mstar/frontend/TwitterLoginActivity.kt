@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.mstar.frontend.domain.User
+import com.mstar.frontend.services.UserService
 import com.twitter.sdk.android.core.*
 import com.twitter.sdk.android.core.TwitterCore
 import com.twitter.sdk.android.core.models.Tweet
@@ -24,6 +26,7 @@ class TwitterLoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_twitter_login)
         loginButton.setCallback(object : Callback<TwitterSession>() {
             override fun success(result: Result<TwitterSession>) {
+                logUserOnBackend(result.data)
                 finish()
             }
 
@@ -33,20 +36,10 @@ class TwitterLoginActivity : AppCompatActivity() {
         })
     }
 
-    fun twit() {
-        val twitterApiClient = TwitterCore.getInstance().apiClient
-        val statusesService = twitterApiClient.statusesService
-        val xd = statusesService.update("kek", null, null,
-                null, null, null, null, null, null)
-        xd.enqueue(object : Callback<Tweet>() {
-            override fun success(result: Result<Tweet>) {
-                Log.i("XD", result.data.text)
-            }
-
-            override fun failure(exception: TwitterException) {
-                //Do something on failure
-                Log.i("XD :(", "KEK :(")
-            }
-        })
+    fun logUserOnBackend(session: TwitterSession) {
+        Log.i("login", session.userName + " " + session.userId)
+        UserService.userId = session.userId.toString()
+        UserService.logUser(User( session.userName, session.userId.toString()))
+        UserService.getUsers()
     }
 }

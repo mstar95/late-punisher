@@ -13,7 +13,12 @@ router
   .get('/', routes.addMeeting)
   .get('/meetings', routes.meetings)
   .get('/users/:id/meetings', routes.meetingsByUser)
+  .delete('/meetings', routes.clearMeetings )
   .post('/meetings', routes.addMeeting)
+  .put('/meetings', routes.updateMeeting)
+  .get('/users', routes.users)
+  .post('/users', routes.addUser)
+  .delete('/users', routes.clearUsers)
 
 app
   .use(logger())

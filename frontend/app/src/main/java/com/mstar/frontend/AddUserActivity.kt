@@ -16,11 +16,11 @@ class AddUserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_user)
         setSupportActionBar(toolbar)
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, UserService.users);
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, getUsers());
         usersToAdd.adapter = adapter
         usersToAdd.setOnItemClickListener { parent, view, position, id ->
             val itemAtPosition = parent.getItemAtPosition(position) as User
-            UserService.addUser(itemAtPosition)
+            UserService.checkUser(itemAtPosition)
             finish()
 
         }
@@ -29,5 +29,9 @@ class AddUserActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
     }
+
+    private fun getUsers() = UserService.users.filter {
+                !UserService.checkedUsers.map { it }.contains(it.id)
+            }.filter{it.id != UserService.userId }
 
 }
